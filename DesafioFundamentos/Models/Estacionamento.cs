@@ -14,16 +14,54 @@ namespace DesafioFundamentos.Models
 
         public void AdicionarVeiculo()
         {
-            // TODO: Pedir para o usuário digitar uma placa (ReadLine) e adicionar na lista "veiculos"
-            // *IMPLEMENTE AQUI*
+
+            Console.Clear();
             Console.WriteLine("Digite a placa do veículo para estacionar:");
+
+
+            string placaDoVeiculo = "";
+            bool inputValido = false;
+            do
+            {
+                placaDoVeiculo = Console.ReadLine();
+                Console.Clear();
+
+                if(!ValidadorDePlaca.ValidarPlaca(placaDoVeiculo) && placaDoVeiculo.ToUpper() == "MENU")
+                {
+                    inputValido = true;
+                    return;
+                }
+                else if (!ValidadorDePlaca.ValidarPlaca(placaDoVeiculo))
+                {
+                    Console.WriteLine("Dados inválidos!");
+                    Console.WriteLine();
+                    Console.WriteLine("Nosso sistema aceita apenas dois padrões de placa:");
+                    Console.WriteLine();
+                    Console.WriteLine("1 - Brasileiro   3 letras, 4 números");
+                    Console.WriteLine("2 - Mercosul     3 letras, 1 número, 1 número ou letra e 2 números");
+                    Console.WriteLine();
+                    Console.WriteLine("Digite uma placa válida, ou MENU para voltar!");
+                }
+                else
+                {
+                    veiculos.Add(placaDoVeiculo);
+                    inputValido = true;
+                    Console.WriteLine("Veículo cadastrado com sucesso!");
+                    Thread.Sleep(1000);
+                }
+
+            }
+            while (!inputValido);
+
+
         }
 
         public void RemoverVeiculo()
         {
+            Console.Clear();
             Console.WriteLine("Digite a placa do veículo para remover:");
 
-            // Pedir para o usuário digitar a placa e armazenar na variável placa
+            // TODO: Pedir para o usuário digitar a placa e armazenar na variável placa
             // *IMPLEMENTE AQUI*
             string placa = "";
 
@@ -55,8 +93,11 @@ namespace DesafioFundamentos.Models
             if (veiculos.Any())
             {
                 Console.WriteLine("Os veículos estacionados são:");
-                // TODO: Realizar um laço de repetição, exibindo os veículos estacionados
-                // *IMPLEMENTE AQUI*
+
+                foreach(string carro in veiculos)
+                {
+                    Console.WriteLine(carro);
+                }
             }
             else
             {
