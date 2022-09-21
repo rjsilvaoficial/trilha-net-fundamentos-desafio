@@ -17,18 +17,18 @@ namespace DesafioFundamentos.Models
 
             Console.Clear();
             Console.WriteLine("Digite a placa do veículo para estacionar:");
-
+            Console.WriteLine();
 
             string placaDoVeiculo = "";
             bool inputValido = false;
             do
             {
-                placaDoVeiculo = Console.ReadLine().ToUpper();
+                placaDoVeiculo = Console.ReadLine();
                 Console.Clear();
 
-                if(!ValidadorDePlaca.ValidarPlaca(placaDoVeiculo) && placaDoVeiculo.ToUpper() == "MENU")
+                if (!ValidadorDePlaca.ValidarPlaca(placaDoVeiculo) && placaDoVeiculo.ToUpper() == "MENU")
                 {
-                    
+
                     Console.WriteLine("Você selecionou a opção Menu!");
                     Thread.Sleep(1200);
                     inputValido = true;
@@ -47,7 +47,7 @@ namespace DesafioFundamentos.Models
                 }
                 else
                 {
-                    veiculos.Add(placaDoVeiculo);
+                    veiculos.Add(placaDoVeiculo.ToUpper());
                     inputValido = true;
                     Console.WriteLine("Veículo cadastrado com sucesso!");
                     Console.WriteLine();
@@ -64,26 +64,40 @@ namespace DesafioFundamentos.Models
         {
             Console.Clear();
             Console.WriteLine("Digite a placa do veículo para remover:");
+            Console.WriteLine();
+            Console.Write("Código da placa: ");
 
-            // TODO: Pedir para o usuário digitar a placa e armazenar na variável placa
-            // *IMPLEMENTE AQUI*
             string placa = "";
+
+            placa = Console.ReadLine();
+
+            Console.WriteLine();
 
             // Verifica se o veículo existe
             if (veiculos.Any(x => x.ToUpper() == placa.ToUpper()))
             {
-                Console.WriteLine("Digite a quantidade de horas que o veículo permaneceu estacionado:");
-
-                // TODO: Pedir para o usuário digitar a quantidade de horas que o veículo permaneceu estacionado,
-                // TODO: Realizar o seguinte cálculo: "precoInicial + precoPorHora * horas" para a variável valorTotal                
-                // *IMPLEMENTE AQUI*
                 int horas = 0;
-                decimal valorTotal = 0; 
+                decimal valorTotal = 0;
+                bool inteiroConvertido = false;
 
-                // TODO: Remover a placa digitada da lista de veículos
-                // *IMPLEMENTE AQUI*
+                do
+                {
+                    Console.Clear();
+                    Console.WriteLine("Digite a quantidade de horas que o veículo permaneceu estacionado:");
 
-                Console.WriteLine($"O veículo {placa} foi removido e o preço total foi de: R$ {valorTotal}");
+                    Console.Write("Quantidade de horas: ");
+                    inteiroConvertido = int.TryParse(Console.ReadLine(), out int result);
+                    horas = result;
+                }
+                while (!inteiroConvertido);
+
+                valorTotal = precoInicial + precoPorHora * horas;
+
+
+                veiculos.Remove(placa);
+                Console.WriteLine();
+                Console.WriteLine($"O veículo de placa: {placa.ToUpper()} foi removido e o preço total foi de: {valorTotal:C2}");
+                Console.ReadLine();
             }
             else
             {
@@ -93,17 +107,15 @@ namespace DesafioFundamentos.Models
 
         public void ListarVeiculos()
         {
-            int contador = 0;
-
             // Verifica se há veículos no estacionamento
             if (veiculos.Any())
             {
                 Console.Clear();
                 Console.WriteLine("As placas dos veículos estacionados são:");
                 Console.WriteLine();
-                foreach(string placa in veiculos)
+                foreach (string placa in veiculos)
                 {
-                    Console.Write($"     {placa}");
+                    Console.Write($"{placa}  ");
                 }
 
                 Console.ReadKey();
