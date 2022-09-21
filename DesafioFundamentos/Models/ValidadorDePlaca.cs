@@ -20,8 +20,9 @@ namespace DesafioFundamentos.Models
             placa = placa.Replace("-", "").Trim();
 
             /*
-             * Regex gerado em conformidade com RESOLUÇÃO Nº 780, DE 26 DE JUNHO DE 2019
-             * A mesma demonstra o padrão para placas de veículos
+             * Regex gerado em conformidade com RESOLUÇÃO Nº 780, DE 26 DE JUNHO DE 2019 do CONTRAN
+             * A mesma demonstra a padronização para placas de veículos
+             * Link: https://www.in.gov.br/web/dou/-/resolucao-n-780-de-26-de-junho-de-2019-179414765
              */
 
             var padraoMercosul = new Regex(@"[a-zA-Z]{3}[0-9]{1}[a-zA-Z\d]{1}[0-9]{2}");

@@ -23,11 +23,14 @@ namespace DesafioFundamentos.Models
             bool inputValido = false;
             do
             {
-                placaDoVeiculo = Console.ReadLine();
+                placaDoVeiculo = Console.ReadLine().ToUpper();
                 Console.Clear();
 
                 if(!ValidadorDePlaca.ValidarPlaca(placaDoVeiculo) && placaDoVeiculo.ToUpper() == "MENU")
                 {
+                    
+                    Console.WriteLine("Você selecionou a opção Menu!");
+                    Thread.Sleep(1200);
                     inputValido = true;
                     return;
                 }
@@ -47,7 +50,8 @@ namespace DesafioFundamentos.Models
                     veiculos.Add(placaDoVeiculo);
                     inputValido = true;
                     Console.WriteLine("Veículo cadastrado com sucesso!");
-                    Thread.Sleep(1000);
+                    Console.WriteLine();
+                    Thread.Sleep(1200);
                 }
 
             }
@@ -89,19 +93,27 @@ namespace DesafioFundamentos.Models
 
         public void ListarVeiculos()
         {
+            int contador = 0;
+
             // Verifica se há veículos no estacionamento
             if (veiculos.Any())
             {
-                Console.WriteLine("Os veículos estacionados são:");
-
-                foreach(string carro in veiculos)
+                Console.Clear();
+                Console.WriteLine("As placas dos veículos estacionados são:");
+                Console.WriteLine();
+                foreach(string placa in veiculos)
                 {
-                    Console.WriteLine(carro);
+                    Console.Write($"     {placa}");
                 }
+
+                Console.ReadKey();
             }
             else
             {
+                Console.WriteLine();
                 Console.WriteLine("Não há veículos estacionados.");
+                Console.ReadKey();
+
             }
         }
     }

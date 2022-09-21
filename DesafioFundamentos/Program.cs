@@ -1,4 +1,5 @@
 ﻿using DesafioFundamentos.Models;
+using System.Globalization;
 
 // Coloca o encoding para UTF8 para exibir acentuação
 Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -6,11 +7,21 @@ Console.OutputEncoding = System.Text.Encoding.UTF8;
 decimal precoInicial = 0;
 decimal precoPorHora = 0;
 
-Console.Write("Seja bem vindo ao sistema de estacionamento!\n" +
-                  "\nDigite o preço inicial: ");
+//RegionInfo fornece acesso a informações sobre a cultura atual do aplicativo, como sigla da moeda, etc
+//Fonte: https://learn.microsoft.com/pt-br/dotnet/api/system.globalization.regioninfo.isocurrencysymbol?view=net-6.0
+RegionInfo informacoesRegionais = new RegionInfo("BR");
+
+Console.WriteLine("Seja bem vindo ao sistema de estacionamento!\n" +
+                  "\nDigite o preço inicial:");
+Console.WriteLine();
+Console.Write($"{informacoesRegionais.CurrencySymbol}: ");
+
 precoInicial = Convert.ToDecimal(Console.ReadLine());
 
-Console.Write("\nAgora digite o preço por hora: ");
+Console.WriteLine("\nAgora digite o preço por hora:");
+Console.WriteLine();
+Console.Write($"{informacoesRegionais.CurrencySymbol}: ");
+
 precoPorHora = Convert.ToDecimal(Console.ReadLine());
 
 // Instancia a classe Estacionamento, já com os valores obtidos anteriormente
@@ -29,6 +40,8 @@ while (exibirMenu)
     Console.WriteLine("2 - Remover veículo");
     Console.WriteLine("3 - Listar veículos");
     Console.WriteLine("4 - Encerrar");
+    Console.WriteLine();
+    Console.Write("Opção selecionada: ");
 
     switch (Console.ReadLine())
     {
@@ -53,11 +66,10 @@ while (exibirMenu)
             break;
     }
 
-    //Linha abaixo comentada motivo: melhoria na comunicação com o usuário
-    //Console.WriteLine("Pressione uma tecla para continuar");
+    Console.Clear();
+    Console.WriteLine("Pressione uma tecla para continuar");
+    Console.ReadLine();
 
-    //Console.WriteLine("Pressione uma tecla para voltar ao menu inicial");
-    //Console.ReadLine();
 }
 
 Console.WriteLine("O programa se encerrou");
